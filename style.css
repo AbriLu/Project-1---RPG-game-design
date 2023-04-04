@@ -1,7 +1,28 @@
 body {
     background-color: darkblue;
+    padding: 10px;
 }
 
 #game {
-    background-color: grey;
+    background-color: lightgrey;
+    border-style:none;
+    padding: 15px;
+}
+
+#stats, #controls {
+    border-style: solid;
+    border-width: 1px 1px 2px 1px;
+    padding: 5px;
+}
+
+/* button {
+    background-color: rgb(180, 173, 173);
+    border-radius: 3px;
+    border-width: 1px;
+} */
+
+#text {
+    color: lightgrey;
+    background-color: black;
+    padding: 15px;
 }
