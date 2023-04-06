@@ -74,7 +74,7 @@ const locations = [
         "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
         "button functions": [fightSlime,fightBeast,goTown],
         text: "You enter the cave, you see some monsters."
-    }
+    },
     {
         name: "fight",
         "button text": ["Attack", "Dodge", "Run"],
@@ -186,10 +186,12 @@ function goFight() {
     update(locations[3]);
     monsterHealth = monsters[fighting].health;
     monsterStats.style.display = "block";   // This is how we can update CSS styles through JavaScript.
+    monsterNameText = monsters[fighting].name;
+    monsterHealthText.innerText = monsterHealth;
 }
 
 function attack () {
-
+    text.innerText = "The " + monsters[fighting].name + " attacks";
 }
 
 function dodge () {
