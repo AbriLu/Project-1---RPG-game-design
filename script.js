@@ -19,6 +19,25 @@ const monsterHealthText = document.querySelector("#monsterHealth");
 const text = document.querySelector("#text");
 const monsterStats = document.querySelector("#monsterStats");
 
+const weapons = [
+    {
+        name: "stick",
+        power: 5
+    },
+    {
+        name: "dagger",
+        power: 30
+    },
+    {
+        name: "claw hammer",
+        power: 50
+    },
+    {
+        name: "sword",
+        power: 100
+    }
+];
+
 const locations = [
     {
         name: "town square",
@@ -59,30 +78,56 @@ function update(location) {
     text.innerText = location.text;
 }
 
+// Game page buttons functions
+
+
 function goStore() {
     update(locations[1]);
 }
 
-function buyHealth() {
-    console.log("Going to you bought 10 health.");
-}
-
-function buyWeapon() {
-    console.log("You bought a weapon.");
-}
-
-function goTown() {
-    update(locations[0]);
-}
-
 function goCave() {
-    console.log("Going to Cave.");
+    update(locations[2]);
 }
 
 function fightDragon() {
     console.log("Fighting dragon.");
 }
 
+// Store page buttons functions
+
+function goTown() {
+    update(locations[0]);
+}
+
+function buyHealth() {
+    if (gold >= 10) {
+        gold -= 10;
+        health += 10;
+        goldText.innerText = gold;
+        healthText.innerText = health;
+    } else {
+        text.innerText = "You do not have enough gold to buy health.";
+    }
+}
+
+function buyWeapon() {
+    if (gold >= 30) {
+        gold -= 30;
+        currentWeapon++;
+        goldText.innerText = gold;
+        text.innerText = "You now have a new weapon."
+    }
+}
+
+// Fight dargon page button functions
+
+function fightSlime() {
+    console.log("Going to you bought 10 health.");
+}
+
+function fightBeast() {
+    console.log("Going to you bought 10 health.");
+}
 
 
 
