@@ -80,6 +80,24 @@ const locations = [
         "button text": ["Attack", "Dodge", "Run"],
         "button functions": [attack,dodge,goTown],
         text: "You are fighting a monster."
+    },
+    {
+        name: "kill monster",
+        "button text": ["Go to town square", "Go to town square", "Go to town square"],
+        "button functions": [goTown,goTown,goTown],
+        text: "The monster screams \"Arg!\" as it dies. You gain experience points and find gold."
+    },
+    {
+        name: "lose",
+        "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
+        "button functions": [restart,restart,restart],
+        text: "You die."
+    },
+    {
+        name: "win",
+        "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
+        "button functions": [restart,restart,restart],
+        text: "You defeat the dragon! YOU WIN THE GAME!"
     }
 ];
 
@@ -92,6 +110,7 @@ button2.onclick = goCave;
 button3.onclick = fightDragon;
 
 function update(location) {
+    monsterStats.style.display = "none";  // Makes the monster stats disappear when the location is updated
     console.log("Going to store.");
     button1.innerText = location["button text"][0];  // changing the text on button 1
     button2.innerText = location["button text"][1];
@@ -158,10 +177,11 @@ function buyWeapon() {
             text.innerText += " In your inventory you have: " + inventory;
         }
     } else {
+        currentWeapon = weapons.length - 1;
         text.innerText = "You already have the most powerful weapon.";
         text.innerText += " In your inventory you have: " + inventory;
         button1.innerText = "Sell weapon (15 gold)";
-        button2.onclick = sellWeapon;
+        button1.onclick = sellWeapon;
     }
 }
 
@@ -186,15 +206,52 @@ function goFight() {
     update(locations[3]);
     monsterHealth = monsters[fighting].health;
     monsterStats.style.display = "block";   // This is how we can update CSS styles through JavaScript.
-    monsterNameText = monsters[fighting].name;
+    monsterNameText.innerText = monsters[fighting].name;
     monsterHealthText.innerText = monsterHealth;
 }
 
 function attack () {
     text.innerText = "The " + monsters[fighting].name + " attacks";
+    text.innerText = "You attack it with your " + weapons[currentWeapon].name + ".";
+    health -= monsters[fighting].level;
+    monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
+    healthText.innerText = health;
+    monsterHealthText.innerText = monsterHealth;
+    if (health <= 0) {
+        lose();
+    } else if (monsterHealth <= 0) {
+        fighting === 2 ? winGame() : defeatMonster();   // Ternary operation was used to implement a conditional (if else) operation
+    }
 }
 
 function dodge () {
-    
+    text.innerText = "You dodge the attack from the " + monsters[fighting].name + ".";
 }
 
+function defeatMonster() {
+    gold += Math.floor(monsters[fighting].level * 6.7);
+    xp += monsters[fighting].level;
+    goldText.innerText = gold;
+    xpText.innerText = xp;
+    update(locations[4])
+}
+
+function lose() {
+    update(locations[5]);
+}
+
+function restart() {
+    xp = 0;
+    health = 100;
+    gold = 50;
+    currentWeapon = 0;
+    inventory = ['stick'];
+    goldText.innerText = gold;
+    healthText.innerText = health;
+    xpText.innerText = xp;
+    goTown();
+}
+
+function winGame() {
+    update(locations[6]);
+}
