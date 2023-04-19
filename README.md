@@ -4,5 +4,5 @@ For now there is no back-end to the game and I am doing this game as part of a f
 The game is simple to understand once lunched but simply put it consists in battling with monsters.
 You gain gold and experience point as you battle and defeat monsters.
 You can then buy weapon and health with the gold that you earn from defeating monsters.
-I am hoping to develop my web front-end design with this project :-).
+I am hoping to develop my web front-end design and programing skills with this project :-).
 Enjoy!
